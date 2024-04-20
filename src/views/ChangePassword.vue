@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img :src="require('@/assets/logoM.png')" alt="logo" width="50">
+            <img :src="require('@/assets/logos.png')" alt="logo" width="50">
           </a>
           <button
             class="navbar-toggler"
@@ -17,11 +17,11 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse justify-content-end navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <!--<router-link to="/" class="btn btn-inline-dark">Inicio</router-link>-->
-                <router-link to="/register" class="btn btn-inline-dark">Registro</router-link>
+                <router-link to="/register" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Registrarse</router-link>
               </li>
             </ul>
           </div>
@@ -32,17 +32,17 @@
   
       <div class="container text-center p-5">
         <img :src="require('@/assets/logoM.png')" alt="logo" width="280">
-        <h1 class="p-3">Cambiar contraseña</h1>
+        <h1 class="p-3" style="color: #230007;">Cambiar contraseña</h1>
         <div class="vstack gap-2 col-md-5 mx-auto mt-3 mb-3 ">
           <div class="form-group mt-3 mb-3">
 
-            <label for="confirmationcode" class="form-label">Codigo de confirmación</label>
+            <label for="confirmationcode" class="form-label" style="color: #230007;">Código de confirmación</label>
             <input v-model="PasswordFormData.Codigo" type="text" id="confirmationcode" placeholder="Codigo de confirmación" class="form-control" />
             
-            <label for="newpassword" class="form-label">Contraseña nueva</label>
+            <label for="newpassword" class="form-label pt-3" style="color: #230007;">Contraseña nueva</label>
             <input v-model="PasswordFormData.Password" type="text" id="newpassword" placeholder="Contraseña nueva" class="form-control" required @input="ValidatePassword('password')"/>
 
-            <label for="confirmationpassword" class="form-label"> Confirmar contraseña</label>
+            <label for="confirmationpassword" class="form-label pt-4" style="color: #230007;"> Confirmar contraseña</label>
             <input v-model="PasswordFormData.Confirmation" type="text" id="confirmationpassword" placeholder="Confirmar contraseña" class="form-control" required @input="ValidatePassword('confirmation')"/>
           </div>
           <div>
@@ -51,7 +51,7 @@
           </div>
   
           <div class="text-center ">
-            <button @click="ChangePassword" :disabled="botonDeshabilitado"   type="button"  class="btn btn-dark btn-lg w-100" style="max-width: 300px;">Cambiar contraseña</button>
+            <button @click="ChangePassword" :disabled="botonDeshabilitado"   type="button"  class="btn btn-dark btn-lg w-100" style="max-width: 300px; background-color: #230007;">Cambiar contraseña</button>
           </div>
         </div>
       </div>

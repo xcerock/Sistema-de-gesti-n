@@ -4,26 +4,27 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img :src="require('@/assets/logoM.png')" alt="logo" width="50">
+          <img :src="require('@/assets/logos.png')" alt="logo" width="50">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-end"  id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <!--<router-link to="/" class="btn btn-inline-dark">Inicio</router-link>-->
-              <router-link to="/register" class="btn btn-inline-dark">Registro</router-link>
+              <router-link to="/register" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Registrarse</router-link>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+    <!-- END NAV BAR -->
 
     <!-- MAIN CONTAINER -->
-    <div class="container text-center p-5">
+    <div class="container-fluid text-center p-5">
       <img :src="require('@/assets/logoM.png')" alt="logo" width="280">
-      <h1 class="p-3">Inicio de sesión</h1>
+      <h1 class="p-3 text" style="color: #230007;">Inicio de sesión</h1>
       <div class="vstack gap-2 col-md-5 mx-auto mt-3 mb-3">
         <form @submit.prevent="login">
           <div class="form-group mt-3 mb-3">
@@ -35,11 +36,12 @@
               <input type="password" placeholder="Contraseña" class="form-control me-2" v-model="password" required @input="validateInput('password')">
               <p v-if="passwordError" class="error-message">Solo caracteres alfanuméricos permitidos.</p>
           </div>
-          <button type="submit" class="btn btn-dark btn-lg mt-3 mb-3">Iniciar sesión</button>
+          <button type="submit" class="btn btn-dark btn-lg mt-3 mb-3 text-white" style="background-color: #230007;">Iniciar sesión</button>
         </form>
-        <p><router-link to="/send-confirmation" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">¿Olvidaste tu contraseña?</router-link></p>
+        <p><router-link to="/send-confirmation" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="color: #230007;">¿Olvidaste tu contraseña?</router-link></p>
       </div>
     </div>
+    <!-- END MAIN CONTAINER -->
   </div>
 </template>
 

@@ -6,6 +6,9 @@ import VueAxios from 'vue-axios'
 import Axios from 'axios'
 import vueCountriesCities from "vue-countries-cities";
 
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 Vue.component("vue-countries-cities", vueCountriesCities);
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

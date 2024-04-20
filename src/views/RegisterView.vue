@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="fluid-container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img :src="require('@/assets/logoM.png')" alt="logo" width="50">
+          <img :src="require('@/assets/logos.png')" alt="logo" width="50">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/login" class="btn btn-outline-dark">Login</router-link>
+              <router-link to="/login" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Login</router-link>
             </li>
           </ul>
         </div>
@@ -19,7 +19,7 @@
     </nav>
     <div class="container py-5">
       <div class="row">
-        <div class="col-12 col-md-4 text-center mb-3">
+        <div class="col-12 col-md-4 d-flex align-items-center justify-content-center text-center mb-3">
           <img alt="image" :src="require('@/assets/logoM.png')" class="img-fluid mb-2" />
         </div>
         <div class="col-12 col-md-8">
@@ -163,7 +163,7 @@
         },
         usernameError: false,
         passwordError: false,
-        showPassword: false
+        showPassword: false,
       };
     },
     mounted() {
@@ -288,4 +288,4 @@
   
 <style scoped>
   /* Tus estilos aquí */
-  </style>
+</style>

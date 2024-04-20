@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img :src="require('@/assets/logoM.png')" alt="logo" width="50">
+          <img :src="require('@/assets/logos.png')" alt="logo" width="50">
         </a>
         <button
           class="navbar-toggler"
@@ -17,11 +17,11 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <!--<router-link to="/" class="btn btn-inline-dark">Inicio</router-link>-->
-              <router-link to="/register" class="btn btn-inline-dark">Registro</router-link>
+              <router-link to="/register" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Registrarse</router-link>
             </li>
           </ul>
         </div>
@@ -32,7 +32,7 @@
 
     <div class="container text-center p-5">
       <img :src="require('@/assets/logoM.png')" alt="logo" width="280">
-      <h1 class="p-3">Ingrese su correo</h1>
+      <h1 class="p-3" style="color: #230007;">Ingrese su correo</h1>
       <div class="vstack gap-2 col-md-5 mx-auto mt-3 mb-3 ">
         <div class="form-group mt-3 mb-3">
           <input v-model="Email" type="email" id="Email" placeholder="Correo electrónico" class="form-control" />
@@ -43,7 +43,7 @@
 
           <div class="text-center">
             <!-- Usamos isEmailValid para controlar el estado del botón -->
-            <button type="submit" @click="SendEmail" class="btn btn-dark btn-lg w-100" :disabled="!isEmailValid" style="max-width: 200px;">Enviar correo</button>
+            <button type="submit" @click="SendEmail" class="btn btn-lg w-100" :disabled="!isEmailValid" style="max-width: 200px; background-color: #230007; color: white;">Enviar correo</button>
           </div>
       </div>
     </div>
