@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/login" class="btn btn-outline-dark">Login</router-link>
+              <router-link to="/login" class="btn btn-outline-dark">Iniciar sesión</router-link>
             </li>
           </ul>
         </div>

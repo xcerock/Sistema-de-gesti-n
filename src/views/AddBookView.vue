@@ -3,15 +3,15 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img :src="require('@/assets/logoM.png')" alt="logo" width="50">
+            <img :src="require('@/assets/logos.png')" alt="logo" width="50">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <router-link to="/login" class="btn btn-outline-dark">Login</router-link>
+                <router-link to="/login" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Iniciar sesión</router-link>
               </li>
             </ul>
           </div>

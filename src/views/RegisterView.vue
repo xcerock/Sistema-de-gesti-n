@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/login" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Login</router-link>
+              <router-link to="/login" class="btn btn-outline-light" style="border-color: #230007; color: #230007;">Iniciar sesión</router-link>
             </li>
           </ul>
         </div>
