@@ -24,8 +24,24 @@
         </div>
         <div class="col-12 col-md-8">
           <div class="row">
+
+            <!-- NOMBRES -->
             <div class="col-12 col-md-6 mb-3">
-              <label for="dni" class="form-label">DNI</label>
+              <label for="firstname" class="form-label txt-lg" style="color: #230007;">Nombres</label>
+              <input v-model="userFormData.Nombres" type="text" id="firstname" placeholder="Nombres" class="form-control" />
+              <div v-if="!userFormData.Nombres.trim()" class="text-danger">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- APELLIDOS -->
+            <div class="col-12 col-md-6 mb-3">
+              <label for="lastname" class="form-label txt-lg" style="color: #230007;">Apellidos</label>
+              <input v-model="userFormData.Apellidos" type="text" id="lastname" placeholder="Apellidos" class="form-control" />
+              <div v-if="!userFormData.Apellidos.trim()" class="text-danger">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- DNI -->
+            <div class="col-12 col-md-6 mb-3">
+              <label for="dni" class="form-label txt-lg" style="color: #230007;">DNI</label>
               <input
                 v-model.number="userFormData.DNI"
                 @input="filterDNI"
@@ -37,35 +53,33 @@
                 step="1" />
               <div v-if="!userFormData.DNI.toString().trim()" class="text-danger">Este campo es obligatorio.</div>
             </div>
-            <div class="col-2 col-md-6 mb-2">
-              <label for="birthplace" class="form-label">Lugar de nacimiento</label>
-              <vue-countries-cities v-model="userFormData.LugarNacimiento" id="birthplace" />
-              <div v-if="!userFormData.LugarNacimiento.trim()" class="text-danger">Este campo es obligatorio.</div>
-            </div>
-            <div class="col-12 col-md-6 mb-3 ">
-                <label for="birthdate" class="form-label">Fecha de nacimiento</label>
-                <input v-model="userFormData.FechaNacimiento" type="date" id="birthdate" placeholder="DD/MM/YYYY" class="form-control" :min = "getminDate()" :max="getMaxDate()" />
-                <div v-if="!userFormData.FechaNacimiento.trim()" class="text-danger">Este campo es obligatorio.</div>
-            </div>
+
+            <!-- CORREO ELECTRONICO -->
             <div class="col-12 col-md-6 mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
+              <label for="email" class="form-label txt-lg" style="color: #230007;">Correo electrónico</label>
               <input v-model="userFormData.CorreoElectronico" type="email" id="email" placeholder="Email" class="form-control" />
               <div v-if="!isEmailValid && userFormData.CorreoElectronico" class="text-danger">
                 Ingrese un correo electrónico válido.
               </div>
             </div>
-            <div class="col-12 col-md-6 mb-3">
-              <label for="lastname" class="form-label">Apellidos</label>
-              <input v-model="userFormData.Apellidos" type="text" id="lastname" placeholder="Apellidos" class="form-control" />
-              <div v-if="!userFormData.Apellidos.trim()" class="text-danger">Este campo es obligatorio.</div>
+
+            <!-- FECHA DE NACIMIENTO -->
+            <div class="col-12 col-md-6 mb-3 ">
+                <label for="birthdate" class="form-label txt-lg" style="color: #230007;">Fecha de nacimiento</label>
+                <input v-model="userFormData.FechaNacimiento" type="date" id="birthdate" placeholder="DD/MM/YYYY" class="form-control" :min = "getminDate()" :max="getMaxDate()" />
+                <div v-if="!userFormData.FechaNacimiento.trim()" class="text-danger">Este campo es obligatorio.</div>
             </div>
-            <div class="col-12 col-md-6 mb-3">
-              <label for="firstname" class="form-label">Nombres</label>
-              <input v-model="userFormData.Nombres" type="text" id="firstname" placeholder="Nombres" class="form-control" />
-              <div v-if="!userFormData.Nombres.trim()" class="text-danger">Este campo es obligatorio.</div>
+
+            <!-- LUGAR DE NACIMIENTO -->
+            <div class="col-2 col-md-6 mb-2">
+              <label for="birthplace" class="form-label txt-lg" style="color: #230007;">Lugar de nacimiento</label>
+              <vue-countries-cities v-model="userFormData.LugarNacimiento" id="birthplace" />
+              <div v-if="!userFormData.LugarNacimiento.trim()" class="text-danger">Este campo es obligatorio.</div>
             </div>
+
+            <!-- GÉNERO -->
             <div class="col-12 col-md-6 mb-3">
-              <label for="gender" class="form-label">Género</label>
+              <label for="gender" class="form-label txt-lg" style="color: #230007;">Género</label>
               <select v-model="userFormData.Genero" id="gender" class="form-control">
                 <option disabled value="">Seleccione una opción</option>
                 <option value="Hombre">Hombre</option>
@@ -74,40 +88,42 @@
               </select>
               <div v-if="!userFormData.Genero" class="text-danger">Este campo es obligatorio.</div>
             </div>
+
+            <!-- DIRECCIÓN DE CORRESPONDENCIA -->
             <div class="col-12 col-md-6 mb-3">
-              <label for="user" class="form-label"> Usuario </label>
-              <input v-model="userFormData.Username" required @input="validateInput('Username')" type="text" id="user" placeholder="Usuario" class="form-control" />
-              <div v-if="!userFormData.Username.trim()" class="text-danger">Este campo es obligatorio.</div>
-            </div>
-            <div class="col-12 col-md-6 mb-3">
-              <label for="password" class="form-label">Contraseña</label>
-              <div class="input-group">
-                <input :type="showPassword ? 'text' : 'password'" v-model="userFormData.Password" required @input="validateInput('Password')" id="password" placeholder="Contraseña" class="form-control" />
-                <button type="button" class="btn btn-outline-secondary" @click="togglePasswordVisibility">
-                   <span v-if="showPassword" class="material-symbols-outlined">visibility</span>
-                   <span v-else class="material-symbols-outlined">visibility_off</span>
-                </button>
-              </div>
-              <div v-if="!userFormData.Password.trim()" class="text-danger">Este campo es obligatorio.</div>
-            </div>
-            <div class="col-12 col-md-6 mb-3">
-              <label for="password" class="form-label">Confirmar contraseña</label>
-              <div class="input-group">
-                <input :type="showPassword ? 'text' : 'password'" v-model="userFormData.Password" required @input="validateInput('Password')" id="password" placeholder="Confrimar" class="form-control" />
-                <button type="button" class="btn btn-outline-secondary" @click="togglePasswordVisibility">
-                   <span v-if="showPassword" class="material-symbols-outlined">visibility</span>
-                   <span v-else class="material-symbols-outlined">visibility_off</span>
-                </button>
-              </div>
-              <div v-if="!userFormData.Password.trim()" class="text-danger">Este campo es obligatorio.</div>
-            </div>
-            <div class="col-12 text-center mb-3">
-              <label for="address" class="form-label"> Dirección de correspondencia </label>
+              <label for="address" class="form-label txt-lg" style="color: #230007;"> Dirección de correspondencia </label>
               <input v-model="userFormData.DireccionCorrespondencia" type="address" id="address" placeholder="Dirección de correspondencia" class="form-control" />
               <div v-if="!userFormData.DireccionCorrespondencia.trim()" class="text-danger">Este campo es obligatorio.</div>
             </div>
+
+            <!-- USUARIO -->
+            <div class="col-12 col-md-6 mb-3">
+              <label for="user" class="form-label txt-lg" style="color: #230007;"> Usuario </label>
+              <input v-model="userFormData.Username" required @input="validateInput('Username')" type="text" id="user" placeholder="Usuario" class="form-control" />
+              <div v-if="!userFormData.Username.trim()" class="text-danger">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- CONTRASEÑA -->
+            <div class="col-12 col-md-6 mb-3">
+              <label for="password" class="form-label txt-lg" style="color: #230007;">Contraseña</label>
+              <div class="input-group">
+                <input :type="showPassword ? 'text' : 'password'" v-model="userFormData.Password" required @input="validateInput('Password')" id="password" placeholder="Contraseña" class="form-control" />
+              </div>
+              <div v-if="!userFormData.Password.trim()" class="text-danger">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- CONFIRMAR CONTRASEÑA -->
+            <div class="col-12 col-md-6 mb-3">
+              <label for="password" class="form-label txt-lg" style="color: #230007;">Confirmar contraseña</label>
+              <div class="input-group">
+                <input :type="showPassword ? 'text' : 'password'" v-model="userFormData.Password" required @input="validateInput('Password')" id="password" placeholder="Confirmar contraseña" class="form-control" />
+              </div>
+              <div v-if="!userFormData.Password.trim()" class="text-danger">Este campo es obligatorio.</div>
+            </div>
+
+            <!-- PREFERENCIAS -->
             <div class="col-12 text-center mb-3">
-              <label for="themes" class="form-label">Temas literarios de preferencia</label>
+              <label for="themes" class="form-label txt-lg" style="color: #230007;">Temas literarios de preferencia</label>
               <select v-model="userFormData.TemasLiterariosPreferencia" id="themes" class="form-control" multiple>
                 <option value="novela">Novela</option>
                 <option value="poesia">Poesía</option>
@@ -127,6 +143,8 @@
                 <option value="manga">Manga</option>
               </select>
             </div>
+
+
           </div>
           <button type="button" @click="registerUser" class="btn btn-success mt-3" :disabled="!isFormValid">Guardar</button>
         </div>
@@ -287,5 +305,7 @@
 </script>
   
 <style scoped>
-  /* Tus estilos aquí */
+  .txt-lg {
+  font-size: 1.3rem; /* You can adjust the value as needed */
+  }  
 </style>

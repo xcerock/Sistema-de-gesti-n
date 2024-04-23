@@ -130,168 +130,168 @@
 <script>
 import axios from 'axios'; // Asegúrate de instalar axios con `npm install axios` o `yarn add axios`
 
-export default {
-  name: 'RegistroUsuarios',
-  data() {
-    return {
-      userFormData: {
-        Password: '',
-        ConfirmPassword: '',
-        Username: '',
-        DNI: '',
-        Nombres: '',
-        Apellidos: '',
-        FechaNacimiento: '',
-        LugarNacimiento: '',
-        DireccionCorrespondencia: '',
-        Genero: '',
-        CorreoElectronico: '',
-        backendUrl: '',
-        Tipo: 'Administrador' // Asumiendo que todos los nuevos registros son de tipo 'Administrador'
-      },
-      usernameError: false,
-      passwordError: false,
-      showPassword: false,
-      isFieldTouched: {
-        Nombres: false,
-        Apellidos: false,
-        DNI: false,
-        CorreoElectronico: false,
-        FechaNacimiento: false,
-        LugarNacimiento: false,
-        Genero: false,
-        DireccionCorrespondencia: false,
-        Username: false,
-        Password: false,
-        ConfirmPassword: false
-      }
-    };
-  },
-  computed: {
-    isEmailValid() {
-      const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return emailPattern.test(this.userFormData.CorreoElectronico);
-    },
-    isFormValid() {
-      const textFieldsFilled = this.userFormData.Nombres.trim() &&
-                               this.userFormData.Apellidos.trim() &&
-                               this.userFormData.DNI.toString().trim() &&
-                               this.userFormData.CorreoElectronico.trim() &&
-                               this.isEmailValid &&
-                               this.userFormData.FechaNacimiento.trim() &&
-                               this.userFormData.LugarNacimiento.trim() &&
-                               this.userFormData.Genero.trim() &&
-                               this.userFormData.DireccionCorrespondencia.trim() &&
-                               this.userFormData.Username.trim() &&
-                               this.userFormData.Password.trim() &&
-                               this.userFormData.ConfirmPassword.trim();
-      return textFieldsFilled;
-    }
-  },
-  methods: {
-    fetchBackendUrl() {
-      const configUrl = 'https://backends-15b02-default-rtdb.firebaseio.com/Urls/Libreria.json';
-      axios.get(configUrl)
-        .then(response => {
-          this.backendUrl = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching backend URL:', error);
-          alert('No se pudo obtener la configuración del servidor. Por favor, intente más tarde.');
-        });
-    },
-    validateInput(field) {
-      if (field === 'Username') {
-        if (/[^a-zA-Z0-9]/.test(this.userFormData.Username)) {
-          this.usernameError = true; // Establece el estado de error para Username
-          this.userFormData.Username = this.userFormData.Username.replace(/[^a-zA-Z0-9]/g, '');
-        } else {
-          this.usernameError = false; // Limpia el estado de error si el input es válido
+  export default {
+    name: 'RegistroUsuarios',
+    data() {
+      return {
+        userFormData: {
+          Password: '',
+          ConfirmPassword: '',
+          Username: '',
+          DNI: '',
+          Nombres: '',
+          Apellidos: '',
+          FechaNacimiento: '',
+          LugarNacimiento: '',
+          DireccionCorrespondencia: '',
+          Genero: '',
+          CorreoElectronico: '',
+          backendUrl: '',
+          Tipo: 'Administrador' // Asumiendo que todos los nuevos registros son de tipo 'Administrador'
+        },
+        usernameError: false,
+        passwordError: false,
+        showPassword: false,
+        isFieldTouched: {
+          Nombres: false,
+          Apellidos: false,
+          DNI: false,
+          CorreoElectronico: false,
+          FechaNacimiento: false,
+          LugarNacimiento: false,
+          Genero: false,
+          DireccionCorrespondencia: false,
+          Username: false,
+          Password: false,
+          ConfirmPassword: false
         }
-      } else if (field === 'Password') {
-        if (/[^a-zA-Z0-9]/.test(this.userFormData.Password)) {
-          this.passwordError = true; // Establece el estado de error para Password
-          this.userFormData.Password = this.userFormData.Password.replace(/[^a-zA-Z0-9]/g, '');
-        } else {
-          this.passwordError = false; // Limpia el estado de error si el input es válido
-        }
-      }
-    },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-    }, 
-    touchField(field) {
-      // Set the flag to true when the field is touched
-      this.isFieldTouched[field] = true;
-    },
-    filterDNI(event) {
-      // Impide la entrada de caracteres que no sean dígitos
-      const value = parseInt(event.target.value, 10);
-      if (isNaN(value) || value < 0) {
-        // Restablece el valor a un estado válido o lo deja en blanco si no es un número
-        this.userFormData.DNI = '';
-      } else {
-        this.userFormData.DNI = value;
-      }
-    },
-    getCurrentDate() {
-      const today = new Date();
-      let day = today.getDate();
-      let month = today.getMonth() + 1; // Los meses en JavaScript comienzan desde 0
-      const year = today.getFullYear();
-
-      // Ajuste para que el día y el mes tengan dos dígitos
-      if (day < 10) {
-          day = '0' + day;
-      }
-      if (month < 10) {
-          month = '0' + month;
-      }
-      // Uso correcto de comillas invertidas y ${} para interpolación
-      return `${year}-${month}-${day}`;
-    },
-
-    async validateAndRegister() {
-      // Check if all fields are touched before showing the alerts
-      const allFieldsTouched = Object.values(this.isFieldTouched).every(touched => touched);
-
-      if (!allFieldsTouched) {
-        alert('Por favor, complete todos los campos antes de registrar.');
-        return;
-      }
-
-      if (!this.backendUrl) {
-        alert('La URL del backend no está disponible. Intente nuevamente.');
-        return;
-      }
-
-      const headers = {
-        'Action': 'SingInAdmin', // Asegúrate de que esta cabecera sea aceptada y manejada en tu backend
-        'Content-Type': 'application/json'
       };
-
-      try {
-        const response = await axios.post(this.backendUrl , this.userFormData, { headers });
-        // Suponiendo que el backend responde con un objeto que incluye una propiedad de estado y un mensaje
-        if (response.data && response.data.Status === "True") {
-          // Suponiendo que `status` y `message` son parte de la respuesta del backend
-          alert("Registro exitoso: " + response.data.message); // Muestra el mensaje de éxito
-          this.$router.push('/login'); // Redirige al usuario a la página de inicio de sesión o a donde consideres apropiado
-        } else {
-          // Si el backend indica que no fue exitoso el registro
-          alert("Error en el registro: " + response.data.message); // Muestra mensaje de error
+    },
+    computed: {
+      isEmailValid() {
+        const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return emailPattern.test(this.userFormData.CorreoElectronico);
+      },
+      isFormValid() {
+        const textFieldsFilled = this.userFormData.Nombres.trim() &&
+                                this.userFormData.Apellidos.trim() &&
+                                this.userFormData.DNI.toString().trim() &&
+                                this.userFormData.CorreoElectronico.trim() &&
+                                this.isEmailValid &&
+                                this.userFormData.FechaNacimiento.trim() &&
+                                this.userFormData.LugarNacimiento.trim() &&
+                                this.userFormData.Genero.trim() &&
+                                this.userFormData.DireccionCorrespondencia.trim() &&
+                                this.userFormData.Username.trim() &&
+                                this.userFormData.Password.trim() &&
+                                this.userFormData.ConfirmPassword.trim();
+        return textFieldsFilled;
+      }
+    },
+    methods: {
+      fetchBackendUrl() {
+        const configUrl = 'https://backends-15b02-default-rtdb.firebaseio.com/Urls/Libreria.json';
+        axios.get(configUrl)
+          .then(response => {
+            this.backendUrl = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching backend URL:', error);
+            alert('No se pudo obtener la configuración del servidor. Por favor, intente más tarde.');
+          });
+      },
+      validateInput(field) {
+        if (field === 'Username') {
+          if (/[^a-zA-Z0-9]/.test(this.userFormData.Username)) {
+            this.usernameError = true; // Establece el estado de error para Username
+            this.userFormData.Username = this.userFormData.Username.replace(/[^a-zA-Z0-9]/g, '');
+          } else {
+            this.usernameError = false; // Limpia el estado de error si el input es válido
+          }
+        } else if (field === 'Password') {
+          if (/[^a-zA-Z0-9]/.test(this.userFormData.Password)) {
+            this.passwordError = true; // Establece el estado de error para Password
+            this.userFormData.Password = this.userFormData.Password.replace(/[^a-zA-Z0-9]/g, '');
+          } else {
+            this.passwordError = false; // Limpia el estado de error si el input es válido
+          }
         }
-      } catch (error) {
-        console.error(error); // Aquí podrías manejar errores específicos de la petición
-        alert("Error al intentar registrar. Por favor, inténtalo de nuevo.");
+      },
+      togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
+      }, 
+      touchField(field) {
+        // Set the flag to true when the field is touched
+        this.isFieldTouched[field] = true;
+      },
+      filterDNI(event) {
+        // Impide la entrada de caracteres que no sean dígitos
+        const value = parseInt(event.target.value, 10);
+        if (isNaN(value) || value < 0) {
+          // Restablece el valor a un estado válido o lo deja en blanco si no es un número
+          this.userFormData.DNI = '';
+        } else {
+          this.userFormData.DNI = value;
+        }
+      },
+      getCurrentDate() {
+        const today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth() + 1; // Los meses en JavaScript comienzan desde 0
+        const year = today.getFullYear();
+
+        // Ajuste para que el día y el mes tengan dos dígitos
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        // Uso correcto de comillas invertidas y ${} para interpolación
+        return `${year}-${month}-${day}`;
+      },
+
+      async validateAndRegister() {
+        // Check if all fields are touched before showing the alerts
+        const allFieldsTouched = Object.values(this.isFieldTouched).every(touched => touched);
+
+        if (!allFieldsTouched) {
+          alert('Por favor, complete todos los campos antes de registrar.');
+          return;
+        }
+
+        if (!this.backendUrl) {
+          alert('La URL del backend no está disponible. Intente nuevamente.');
+          return;
+        }
+
+        const headers = {
+          'Action': 'SingInAdmin', // Asegúrate de que esta cabecera sea aceptada y manejada en tu backend
+          'Content-Type': 'application/json'
+        };
+
+        try {
+          const response = await axios.post(this.backendUrl , this.userFormData, { headers });
+          // Suponiendo que el backend responde con un objeto que incluye una propiedad de estado y un mensaje
+          if (response.data && response.data.Status === "True") {
+            // Suponiendo que `status` y `message` son parte de la respuesta del backend
+            alert("Registro exitoso: " + response.data.message); // Muestra el mensaje de éxito
+            this.$router.push('/login'); // Redirige al usuario a la página de inicio de sesión o a donde consideres apropiado
+          } else {
+            // Si el backend indica que no fue exitoso el registro
+            alert("Error en el registro: " + response.data.message); // Muestra mensaje de error
+          }
+        } catch (error) {
+          console.error(error); // Aquí podrías manejar errores específicos de la petición
+          alert("Error al intentar registrar. Por favor, inténtalo de nuevo.");
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>
-.txt-lg {
-  font-size: 1.3rem; /* You can adjust the value as needed */
-}  
+  .txt-lg {
+    font-size: 1.3rem; /* You can adjust the value as needed */
+  }  
 </style>
