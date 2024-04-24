@@ -17,7 +17,7 @@
         </div>
       </div>
     </nav>
-    <div class="container py-5">
+    <div class="container-fluid p-5">
       <div class="row">
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center text-center mb-3">
           <img alt="image" :src="require('@/assets/logoM.png')" class="img-fluid mb-2" />
